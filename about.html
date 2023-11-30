@@ -1,42 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="auto" lang="en">
+
 <head>
-    <title>Computer Science Club</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>CSA Club</title>
+    <script>
+        (function() {
+
+            // JavaScript snippet handling Dark/Light mode switching
+
+            const getStoredTheme = () => localStorage.getItem('theme');
+            const setStoredTheme = theme => localStorage.setItem('theme', theme);
+            const forcedTheme = document.documentElement.getAttribute('data-bss-forced-theme');
+
+            const getPreferredTheme = () => {
+
+                if (forcedTheme) return forcedTheme;
+
+                const storedTheme = getStoredTheme();
+                if (storedTheme) {
+                    return storedTheme;
+                }
+
+                const pageTheme = document.documentElement.getAttribute('data-bs-theme');
+
+                if (pageTheme) {
+                    return pageTheme;
+                }
+
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+
+            const setTheme = theme => {
+                if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-bs-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-bs-theme', theme);
+                }
+            }
+
+            setTheme(getPreferredTheme());
+
+            const showActiveTheme = (theme, focus = false) => {
+                const themeSwitchers = [].slice.call(document.querySelectorAll('.theme-switcher'));
+
+                if (!themeSwitchers.length) return;
+
+                document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+                    element.classList.remove('active');
+                    element.setAttribute('aria-pressed', 'false');
+                });
+
+                for (const themeSwitcher of themeSwitchers) {
+
+                    const btnToActivate = themeSwitcher.querySelector('[data-bs-theme-value="' + theme + '"]');
+
+                    if (btnToActivate) {
+                        btnToActivate.classList.add('active');
+                        btnToActivate.setAttribute('aria-pressed', 'true');
+                    }
+                }
+            }
+
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                const storedTheme = getStoredTheme();
+                if (storedTheme !== 'light' && storedTheme !== 'dark') {
+                    setTheme(getPreferredTheme());
+                }
+            });
+
+            window.addEventListener('DOMContentLoaded', () => {
+                showActiveTheme(getPreferredTheme());
+
+                document.querySelectorAll('[data-bs-theme-value]')
+                    .forEach(toggle => {
+                        toggle.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const theme = toggle.getAttribute('data-bs-theme-value');
+                            setStoredTheme(theme);
+                            setTheme(theme);
+                            showActiveTheme(theme);
+                        })
+                    })
+            });
+        })();
+    </script>
+    <link rel="icon" type="image/webp" sizes="1024x1024" href="assets/img/icon.webp">
+    <link rel="icon" type="image/webp" sizes="1024x1024" href="assets/img/icon.webp" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/webp" sizes="1024x1024" href="assets/img/icon.webp">
+    <link rel="icon" type="image/webp" sizes="1024x1024" href="assets/img/icon.webp" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/webp" sizes="1024x1024" href="assets/img/icon.webp">
+    <link rel="icon" type="image/webp" sizes="1024x1024" href="assets/img/icon.webp">
+    <link rel="icon" type="image/webp" sizes="1024x1024" href="assets/img/icon.webp">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700,700i">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/Footer-with-social-media-icons.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/Ultimate-Event-Calendar.css">
 </head>
+
 <body>
-    <header>
-        <h1>Computer Science Club</h1>
-        <nav>
-            <ul>
-                <li><a href="./index.html">Home</a></li>
-                <li><a href="./about.html">About Us</a></li>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <h2>Welcome to our club!</h2>
-            <p>We are a group of computer science enthusiasts who love to learn and share our knowledge with others. Join us to explore the world of computer science and technology!</p>
-        </section>
-        <section>
-            <h2>Upcoming Events</h2>
-            <ul>
-                <li>Men are cool</li>
-                <li>Web Development Workshop - December 7th</li>
-                <li>Machine Learning Seminar - December 14th</li>
-            </ul>
-        </section>
-        <section>
-            <h2>About Us</h2>
-            <p>The Computer Science Club is a community of students who are passionate about computer science and technology. We organize events, workshops, and seminars to help students learn new skills and connect with like-minded individuals. Our goal is to create a supportive and inclusive environment where everyone can learn and grow.</p>
-        </section>
-    </main>
-    <footer>
-        <p>© 2023 Computer Science Club</p>
+    <nav class="navbar navbar-expand-md py-3">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span><img id="logo" src="assets/img/icon.webp" width="40px">CSA Club</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-2">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html"><span style="color: var(--bs-nav-link-hover-color);">Home</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html"><span style="color: var(--bs-navbar-active-color);">About</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="upcoming.html">Upcoming</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>About the CSA Club</h1>
+        <p>Super cool club with super cool stuff and you should totally join!</p>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="my-4">Our leadership</h2>
+            </div>
+            <div class="col-sm-6 col-lg-4 mb-4 text-center"><img class="rounded-circle img-fluid d-block mx-auto" src="assets/img/Brody.png" width="204" height="204">
+                <h3 class="m-0">Brody England</h3>
+                <h5 class="my-1">President</h5>
+                <p>I AM HUMAN I SWEAR</p>
+            </div>
+            <div class="col-sm-6 col-lg-4 mb-4 text-center"><img class="rounded-circle img-fluid d-block mx-auto" src="assets/img/Dallon.png" width="204" height="204">
+                <h3 class="m-0">Dallon Jarman</h3>
+                <h5 class="my-1">Vice President</h5>
+                <p>I AM NOT HUMAN</p>
+            </div>
+            <div class="col-sm-6 col-lg-4 mb-4 text-center"><img class="rounded-circle img-fluid d-block mx-auto" src="assets/img/Charles.jpeg" width="204">
+                <h3 class="m-0">Charles Descamps</h3>
+                <h5 class="my-1">Secretary</h5>
+                <p>WHAT IS A HUMAN</p>
+            </div>
+        </div>
+    </div>
+    <footer id="footerpad">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-8 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item"><a href="#"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-stack-1x fa-inverse"></i></span></a></li>
+                        <li class="list-inline-item"><a href="#"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a></li>
+                        <li class="list-inline-item"><a href="#"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-instagram fa-stack-1x fa-inverse"></i></span></a></li>
+                        <li class="list-inline-item"><a href="#"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-linkedin fa-stack-1x fa-inverse"></i></span></a></li>
+                    </ul>
+                    <p class="copyright text-muted text-center">Copyright © CSA 2023 | Web Design by Dallon Jarman</p>
+                </div>
+            </div>
+        </div>
     </footer>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/Ultimate-Event-Calendar.js"></script>
 </body>
-<script src="script.js"></script>
+
 </html>

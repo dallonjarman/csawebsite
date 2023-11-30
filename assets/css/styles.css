@@ -1,0 +1,32 @@
+body {
+}
+
+.navbar {
+  background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
+}
+
+footer {
+  /*position: fixed;*/
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+#logo {
+  margin-bottom: 5px;
+  width: 40px;
+  margin-right: 10px;
+  border-radius: 10px;
+}
+
+#title {
+  padding-top: var(--bs-navbar-padding-y);
+  padding-bottom: var(--bs-navbar-brand-padding-y);
+  margin-right: var(--bs-navbar-brand-margin-end);
+  text-decoration: none !important;
+  text-underline-offset: 100px;
+  font-size: var(--bs-navbar-brand-font-size);
+  color: var(--bs-navbar-brand-color);
+  white-space: nowrap;
+}
+
